@@ -9,6 +9,8 @@ import pl.wszib.memoryapi.data.repository.CategoryRepository;
 import pl.wszib.memoryapi.web.models.CardRequest;
 import pl.wszib.memoryapi.web.models.CardResponse;
 
+import java.util.List;
+
 @Service
 public class CardService {
 
@@ -25,5 +27,10 @@ public class CardService {
         CardEntity savedCard = cardRepository.save(cardEntity);
         categoryEntity.addCard(savedCard);
         return new CardResponse(categoryId, savedCard);
+    }
+
+    public List<CardResponse> fetchAll(Long categoryId) {
+        CategoryEntity category = categoryRepository.findById(categoryId).orElseThrow(NotFoundException::new);
+        return category.getCards().stream().map(c -> new CardResponse(categoryId, c)).toList();
     }
 }
