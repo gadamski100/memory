@@ -33,4 +33,9 @@ public class CardService {
         CategoryEntity category = categoryRepository.findById(categoryId).orElseThrow(NotFoundException::new);
         return category.getCards().stream().map(c -> new CardResponse(categoryId, c)).toList();
     }
+    @Transactional
+    public void removeCard(Long categoryId, Long cardId) {
+//        cardRepository.findByIdAndCategoryID(cardId, categoryId).ifPresent(cardRepository::delete);
+        categoryRepository.findById(categoryId).ifPresent(category -> category.removeCard(cardId));
+    }
 }

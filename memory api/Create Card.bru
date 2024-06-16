@@ -5,7 +5,14 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/categories/1/cards
-  body: none
+  url: http://localhost:8080/categories/5/cards
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "term" : "Dark Beer",
+    "definition": "Ciemne Piwo"
+  }
 }

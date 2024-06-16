@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories/{categoryId}/cards")
+@CrossOrigin
 public class CardController {
 
     private final CardService cardService;
@@ -30,7 +31,11 @@ public class CardController {
         return ResponseEntity.ok(cards);
     }
 
-
+    @DeleteMapping("{cardId}")
+    public ResponseEntity<Void> removeCard(@PathVariable Long categoryId, @PathVariable Long cardId){
+        cardService.removeCard(categoryId, cardId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
